@@ -5,6 +5,7 @@ import { dates } from './dates'; // Importing the data
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import { Suspense } from 'react';
+import { BoxIcon } from '@radix-ui/react-icons';
 
 
 export default function App() {
@@ -35,7 +36,7 @@ export default function App() {
       const data = await response.json();
       if (data.titles.length === 0) {
         // Set a default message if no titles are returned
-        setArticleTitles(["This YEWS is still being created. Go make it."]);
+        setArticleTitles(["This YEWS is still being written. Go make it."]);
       } else {
         setArticleTitles(data.titles);
       }
@@ -104,7 +105,7 @@ export default function App() {
       )}
 
       <button className="reset-button" onClick={handleResetCamera}>
-        Reset
+        < BoxIcon />
       </button>
       </Suspense>
     </div>

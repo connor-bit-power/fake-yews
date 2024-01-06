@@ -23,7 +23,7 @@ ul {
 }
 
 h1 {
-  font-size: 2em; /* Adjust size as needed */
+  font-size: 3em; /* Adjust size as needed */
   color: #fff; /* Example color */
   /* Additional styles */
 }
@@ -107,7 +107,7 @@ h3 {
 
 .selected-point {
   font-size: 0.85em;
-  margin-top: 1px;
+  margin-top: 0px;
   position: absolute; /* or `relative` depending on your layout needs */
   top: 0; /* Adjust as necessary to position the element */
   left: 0; /* Adjust as necessary to position the element */
