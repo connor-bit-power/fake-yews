@@ -3,8 +3,10 @@ import * as THREE from 'three';
 import { useAnimatedLayout } from './layouts';
 import { a } from 'react-spring/three';
 
+
 // re-use for instance computations
 const scratchObject3D = new THREE.Object3D();
+
 
 function updateInstancedMeshMatrices({ mesh, data }) {
   if (!mesh) return;
@@ -22,7 +24,7 @@ function updateInstancedMeshMatrices({ mesh, data }) {
   mesh.instanceMatrix.needsUpdate = true;
 }
 
-const SELECTED_COLOR = '#6f6';
+const SELECTED_COLOR = '#002FA7';
 const DEFAULT_COLOR = '#888';
 
 // re-use for instance computations
@@ -119,17 +121,14 @@ const InstancedPoints = ({ data, layout, selectedPoint, onSelectPoint }) => {
         onClick={handleClick}
         onPointerDown={handlePointerDown}
       >
-        <cylinderBufferGeometry attach="geometry" args={[0.5, 0.5, 0.15, 32]}>
+        <sphereBufferGeometry attach="geometry" args={[0.5, 300, 10]}>
           <instancedBufferAttribute
             ref={colorAttrib}
             attachObject={['attributes', 'color']}
             args={[colorArray, 3]}
           />
-        </cylinderBufferGeometry>
-        <meshStandardMaterial
-          attach="material"
-          vertexColors={THREE.VertexColors}
-        />
+        </sphereBufferGeometry>
+        <meshStandardMaterial attach="material" vertexColors={true} />
       </instancedMesh>
       {selectedPoint && (
         <a.group
@@ -142,16 +141,16 @@ const InstancedPoints = ({ data, layout, selectedPoint, onSelectPoint }) => {
           <pointLight
             distance={9}
             position={[0, 0, 0.3]}
-            intensity={2.2}
+            intensity={20.2}
             decay={30}
-            color="#3f3"
+            color="#0017CC"
           />
           <pointLight
             position={[0, 0, 0]}
             decay={1}
             distance={5}
-            intensity={1.5}
-            color="#2f0"
+            intensity={10.5}
+            color="#0017CC"
           />
         </a.group>
       )}

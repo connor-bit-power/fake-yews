@@ -1,0 +1,15 @@
+something is up w this fakeYEWS
+
+idk what 
+
+someone smarter could certianly figure it out
+
+but i am mereley a wee lad with a G-P-T
+
+so i will proceed with what i assume is
+
+the technical equivalent to driving with no catalytic converter
+
+put this in the terminal, fag:
+
+export NODE_OPTIONS=--openssl-legacy-provider

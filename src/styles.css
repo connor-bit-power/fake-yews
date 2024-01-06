@@ -13,24 +13,70 @@ body {
   position: relative;
   padding: 16px;
   box-sizing: border-box;
+  align-items: center;
+} /* This closing brace was missing */
+
+ul {
+  list-style-type: none; /* Removes the default bullet points */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
 }
 
+h1 {
+  font-size: 2em; /* Adjust size as needed */
+  color: #fff; /* Example color */
+  /* Additional styles */
+}
+
+h2 {
+  font-size: 1.5em;
+  color: #ccc;
+  /* Additional styles */
+}
+
+h3 {
+  font-size: 1.2em;
+  color: #aaa;
+  /* Additional styles */
+}
+
+
+.article-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
 .vis-container {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: transparent; /* Example: semi-transparent white */
 }
 
 .controls {
-  position: relative;
+  position: absolute;
   z-index: 1;
   background: rgba(0, 0, 0, 0.9);
-  padding: 16px;
+  padding: 8px 16px; /* reduced vertical padding */
   color: #fff;
-  width: 200px;
-  border-radius: 16px;
+  width: 100%; /* full width */
+  border-radius: 0; /* no border radius for top bar style */
+  display: flex; /* aligns children inline */
+  justify-content: center; /* centers children horizontally */
+  align-items: center; /* centers children vertically */
+  top: 0; /* ensures it's at the top */
+  left: 0; /* aligns to the left edge */
+}
+
+.button-active {
+  border: 2px solid #fff; /* White border for active button */
 }
 
 .controls > button,
@@ -38,6 +84,7 @@ body {
   padding: 10px;
   background: #222;
   color: #ccc;
+  border-radius: 12px;
   border: none;
   margin: 2px;
   text-transform: uppercase;
@@ -53,17 +100,48 @@ body {
 
 .controls > button.active {
   font-weight: bold;
-  background-color: #333;
-  color: #ff0;
+  border-radius: 12px;
+  background-color: #131313;
+  color: #fff;
 }
 
 .selected-point {
   font-size: 0.85em;
-  margin-top: 16px;
+  margin-top: 1px;
+  position: absolute; /* or `relative` depending on your layout needs */
+  top: 0; /* Adjust as necessary to position the element */
+  left: 0; /* Adjust as necessary to position the element */
+  z-index: 2; /* Ensure it's above other elements */
+  width: 100%; /* Make sure it spans the width of the screen or container */
+  text-align: center; /* Center the text if desired */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .reset-button {
-  position: absolute;
+  display: inline-block;
+  position: fixed; /* Fix the position relative to the viewport */
+  bottom: 20px; /* Distance from bottom, adjust as needed */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for exact centering */
+  z-index: 1; /* Ensure it's above other elements */
+  border: #000 1px;
+  border-radius: 20px;
+}
+
+.open-button {
+  position: center;
+  margin-top: 5px;
+  margin-left: 5px;
+  background-color: transparent;
+  color: #fff;
+  border: 0px;
+  border-radius: 12px;
   right: 16px;
   top: 16px;
   z-index: 1;
