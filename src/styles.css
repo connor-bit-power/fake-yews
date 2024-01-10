@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -45,8 +46,52 @@ h3 {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  background-color: transparent;
 }
 
+.title-button {
+  background-color: transparent;
+  color: white; /* Changed from 'transparent' to 'white' */
+  border: none;
+  text-shadow: none;
+  box-shadow: none;
+  outline: none;
+  font-size: 16px; /* Add a font size for better visibility */
+  cursor: pointer; /* To indicate it's clickable */
+}
+
+.title-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Optional: Add a slight background on hover for better UX */
+}
+
+.read-more-button {
+  background-color: #f0f0f0; /* Example background color */
+  color: #333; /* Example text color */
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  /* Add more styling as needed */
+}
+
+.read-more-button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}
+
+.chat-button {
+  background-color: #f0f0f0; /* Example background color */
+  color: #333; /* Example text color */
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-left: 10px; /* Adds space between the Read More and Chat buttons */
+  cursor: pointer;
+  /* Add more styling as needed */
+}
+
+.chat-button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}
 
 .vis-container {
   background-size: cover;
@@ -73,6 +118,35 @@ h3 {
   align-items: center; /* centers children vertically */
   top: 0; /* ensures it's at the top */
   left: 0; /* aligns to the left edge */
+}
+
+.button-read-more {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.content-box {
+  position: fixed;
+  top: 155%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%);
+  width: 75%; /* Adjust the width to 75% of the viewport width */
+  height: 300px; /* Set a fixed height for the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  background-color: rgba(10, 10, 10, 0.85);
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #007bff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto; /* Add scroll for overflow content */
 }
 
 .button-active {
@@ -108,12 +182,13 @@ h3 {
 .selected-point {
   font-size: 0.85em;
   margin-top: 0px;
-  position: absolute; /* or `relative` depending on your layout needs */
-  top: 0; /* Adjust as necessary to position the element */
+  position: fixed; /* or `relative` depending on your layout needs */
+  top: 0; 
   left: 0; /* Adjust as necessary to position the element */
   z-index: 2; /* Ensure it's above other elements */
   width: 100%; /* Make sure it spans the width of the screen or container */
-  text-align: center; /* Center the text if desired */
+  text-align: center; 
+  align-items: center;
 }
 
 .footer {
