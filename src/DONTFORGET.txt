@@ -10,6 +10,6 @@ so i will proceed with what i assume is
 
 the technical equivalent to driving with no catalytic converter
 
-put this in the terminal, fag:
+put this in the terminal:
 
 export NODE_OPTIONS=--openssl-legacy-provider

@@ -13,7 +13,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-# Existing function to get article titles
 def get_article_titles(url):
     response = requests.get(url)
     titles_data = []
@@ -55,9 +54,8 @@ def get_article_details(url):
                 body_text = body_text_tag.get_text(strip=True) if body_text_tag else None
 
             articles_data.append({
-                'article_title': article_title,
-                'painting_title': None,  # Assuming painting_title is not required
-                'body_text': body_text
+                'Title': article_title,
+                'Details': body_text
             })
     else:
         print(f"Failed to retrieve content: {response.status_code}")

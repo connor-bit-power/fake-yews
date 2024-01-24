@@ -14,8 +14,9 @@ body {
   position: relative;
   padding: 16px;
   box-sizing: border-box;
-  align-items: center;
-} /* This closing brace was missing */
+  align-items: left;
+  text-align: left;
+} 
 
 ul {
   list-style-type: none; /* Removes the default bullet points */
@@ -57,14 +58,18 @@ h3 {
   box-shadow: none;
   outline: none;
   font-size: 16px; /* Add a font size for better visibility */
-  cursor: pointer; /* To indicate it's clickable */
+  cursor: pointer; 
+  text-align: left;
 }
 
 .title-button:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Optional: Add a slight background on hover for better UX */
+  border: solid #fff 1px;
+  border-radius: 10px;
+  color:#007bff;
 }
 
 .read-more-button {
+  text-align: left;
   background-color: #f0f0f0; /* Example background color */
   color: #333; /* Example text color */
   border: none;
@@ -79,6 +84,7 @@ h3 {
 }
 
 .chat-button {
+  text-align: left;
   background-color: #f0f0f0; /* Example background color */
   color: #333; /* Example text color */
   border: none;
@@ -94,15 +100,16 @@ h3 {
 }
 
 .vis-container {
-  background-size: cover;
-  background-position: center center;
+  background-color: transparent;
+  background-image: none;
   background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: transparent; /* Example: semi-transparent white */
 }
 
 .controls {
@@ -114,7 +121,7 @@ h3 {
   width: 100%; /* full width */
   border-radius: 0; /* no border radius for top bar style */
   display: flex; /* aligns children inline */
-  justify-content: center; /* centers children horizontally */
+  justify-content: flex-start; /* centers children horizontally */
   align-items: center; /* centers children vertically */
   top: 0; /* ensures it's at the top */
   left: 0; /* aligns to the left edge */
@@ -180,16 +187,13 @@ h3 {
 }
 
 .selected-point {
-  font-size: 0.85em;
-  margin-top: 0px;
-  position: fixed; /* or `relative` depending on your layout needs */
-  top: 0; 
-  left: 0; /* Adjust as necessary to position the element */
-  z-index: 2; /* Ensure it's above other elements */
-  width: 100%; /* Make sure it spans the width of the screen or container */
-  text-align: center; 
-  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: #fff;
+  text-align: left;
 }
+
 
 .footer {
   position: fixed;
@@ -211,13 +215,44 @@ h3 {
 
 .open-button {
   position: center;
-  margin-top: 5px;
-  margin-left: 5px;
+  margin-top: 0px;
+  margin-left: 0px;
   background-color: transparent;
   color: #fff;
   border: 0px;
   border-radius: 12px;
-  right: 16px;
-  top: 16px;
-  z-index: 1;
+}
+
+.open-button:hover {
+  border: solid #fff 1px;
+  border-radius: 10px;
+}
+
+
+.vis-and-text-container {
+  position: relative;
+  height: 100vh; /* This ensures the container takes full viewport height */
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white; /* Adjust color as needed */
+  z-index: 10; /* Ensures text is above the Three.js canvas */
+}
+
+.left-text {
+  position: absolute;
+  top: 200px;
+  left: 20px;
+  width: 300px; /* Adjust based on your layout needs */
+  z-index: 10;
+  color: white;
+}
+
+
+.right-text {
+  top: 100px;
+  right: 20px; /* Adjust as needed */
 }

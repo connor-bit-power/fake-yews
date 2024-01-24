@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import ThreePointVis from './ThreePointVis/ThreePointVis';
 import './styles.css';
 import { dates } from './dates';
@@ -7,6 +7,8 @@ import { TextureLoader } from 'three';
 import { Suspense } from 'react';
 import { BoxIcon } from '@radix-ui/react-icons';
 import HolyLoader from "holy-loader";
+import getBitcoinPriceUSD from './components/bitcoin';
+import React, { useState, useEffect } from 'react';
 
 export default function App() {
   const [layout, setLayout] = React.useState('spiral');
@@ -16,6 +18,7 @@ export default function App() {
   const [showContentBox, setShowContentBox] = React.useState(false);
   const [articleDetails, setArticleDetails] = React.useState([]);
   const [showExtraContent, setShowExtraContent] = React.useState(false);
+  const [bitcoinPrice, setBitcoinPrice] = useState('Loading...');
 
   const visRef = React.useRef();
 
@@ -94,7 +97,6 @@ export default function App() {
     }
   };
 
-
   const handleTimeSlotSelection = async (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
     if (selectedPoint) {
@@ -121,71 +123,75 @@ export default function App() {
     color: '#fff'
   };
 
+  useEffect(() => {
+    const fetchPrice = async () => {
+        const price = await getBitcoinPriceUSD();
+        // Round the price to the nearest dollar
+        const roundedPrice = Math.round(price);
+        setBitcoinPrice(roundedPrice);
+    };
+
+    fetchPrice();
+}, []);
+
+  async function displayBitcoinPrice() {
+    const priceUSD = await getBitcoinPriceUSD();
+    if (priceUSD) {
+        console.log(`Current Bitcoin Price: $${priceUSD}`);
+    } else {
+        console.log('Failed to fetch Bitcoin price.');
+    }
+}
+displayBitcoinPrice();
+
   return (
-    <div className="App">
+    <div>
       <HolyLoader />
       <Suspense fallback={<div>Loading...</div>}>
-        <div className="vis-container">
+        <div className="vis-and-text-container">
+          <div className="text-overlay left-text">
+            <h1>YEWS</h1>
+            {selectedPoint && (
+              <>
+                <strong>{selectedPoint.date}</strong>
+                <div>
+                  <button className={`open-button ${activeButton === 'tenAM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('tenAM')}>10AM</button>
+                  <button className={`open-button ${activeButton === 'threePM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('threePM')}>3PM</button>
+                  <button className={`open-button ${activeButton === 'eightPM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('eightPM')}>8PM</button>
+                </div>
+                {!showExtraContent && articleTitles.length > 0 && (
+                  <ul className="article-list">
+                    {articleTitles.map((title, index) => (
+                      <li key={index}>
+                        <button className="title-button" onClick={() => onDetailButtonClick(index)}>
+                          {title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            )}
+          </div>
+
+          <div className="text-overlay right-text">
+
+          <strong>Bitcoin</strong>
+          <p>${bitcoinPrice}</p>
+
+          </div>
           <ThreePointVis
             ref={visRef}
             data={dates}
             layout={layout}
             selectedPoint={selectedPoint}
-            onSelectPoint={onSelectPoint} />
+            onSelectPoint={onSelectPoint} 
+          />
         </div>
-  
-        <div>
-          <h1>YEWS</h1>
-        </div>
-  
-        {selectedPoint && (
-          <div className="selected-point" style={selectedPointStyle}>
-            <h1>YEWS</h1> <strong>{selectedPoint.date}</strong>
-            <div>
-              <button className={`open-button ${activeButton === 'tenAM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('tenAM')}>10AM</button>
-              <button className={`open-button ${activeButton === 'threePM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('threePM')}>3PM</button>
-              <button className={`open-button ${activeButton === 'eightPM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('eightPM')}>8PM</button>
-            </div>
-            {!showExtraContent && articleTitles.length > 0 && (
-              <>
-                <ul className="article-list">
-                  {articleTitles.map((title, index) => (
-                    <li key={index}>
-                      <button className="title-button" onClick={() => onDetailButtonClick(index)}>
-                        {title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                <div>
-                  <button className="read-more-button" onClick={handleReadMoreClick}>
-                    Read More
-                  </button>
-                  <button className="chat-button" onClick={handleChatClick}>
-                    Chat
-                  </button>
-                </div>
-              </>
-            )}
-            {showContentBox && articleDetails.length > 0 && (
-              <div className="content-box">
-                {typeof articleDetails[0] === 'string' ? (
-                  <p>{articleDetails[0]}</p>
-                ) : (
-                  <>
-                    <h3>{articleDetails[0]?.article_title || "Title not available"}</h3>
-                    <p>{articleDetails[0]?.body_text || "Content not available"}</p>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-  
         <button className="reset-button" onClick={handleReset}>
           <BoxIcon />
         </button>
       </Suspense>
     </div>
   );
-                }
+}

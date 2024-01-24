@@ -1,8 +1,18 @@
 import * as React from 'react';
-import { Canvas } from 'react-three-fiber';
+import { Canvas, useThree } from 'react-three-fiber';
 import Controls from './Controls';
 import InstancedPoints from './InstancedPoints';
 import Effects from './Effects';
+import * as THREE from 'three';
+
+const SceneBackground = () => {
+  const { scene } = useThree();
+  React.useEffect(() => {
+    scene.background = null; // Makes the scene background completely transparent
+  }, [scene]);
+
+  return null;
+};
 
 const ThreePointVis = ({ data, layout, selectedPoint, onSelectPoint }, ref) => {
   const controlsRef = React.useRef();
@@ -13,7 +23,8 @@ const ThreePointVis = ({ data, layout, selectedPoint, onSelectPoint }, ref) => {
   }));
 
   return (
-    <Canvas camera={{ position: [0, 0, 80], far: 15000 }}>
+    <Canvas camera={{ position: [0, -35, 20], far: 150 }}>
+      <SceneBackground />
       <Controls ref={controlsRef} />
       <ambientLight color="#ffffff" intensity={0.1} />
       <hemisphereLight
