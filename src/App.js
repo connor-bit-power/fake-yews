@@ -19,6 +19,25 @@ export default function App() {
   const [articleDetails, setArticleDetails] = React.useState([]);
   const [showExtraContent, setShowExtraContent] = React.useState(false);
   const [bitcoinPrice, setBitcoinPrice] = useState('Loading...');
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (date) => {
+    return date.toLocaleTimeString('en-US', { hour12: false });
+  };
+
+  const formatDate = (date) => {
+    const month = date.getMonth() + 1; // getMonth() returns month from 0-11
+    const day = date.getDate();
+    return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+  };
 
   const visRef = React.useRef();
 
@@ -175,7 +194,8 @@ displayBitcoinPrice();
           </div>
 
           <div className="text-overlay right-text">
-
+          <p>{formatDate(currentTime)}</p>
+          <p>{formatTime(currentTime)}</p>
           <strong>Bitcoin</strong>
           <p>${bitcoinPrice}</p>
 
@@ -186,6 +206,7 @@ displayBitcoinPrice();
             layout={layout}
             selectedPoint={selectedPoint}
             onSelectPoint={onSelectPoint} 
+            currentDate={formatDate(currentTime)}
           />
         </div>
         <button className="reset-button" onClick={handleReset}>

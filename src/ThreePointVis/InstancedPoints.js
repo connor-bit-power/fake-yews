@@ -87,9 +87,10 @@ const useMousePointInteraction = ({ data, selectedPoint, onSelectPoint }) => {
   return { handlePointerDown, handleClick };
 };
 
-const InstancedPoints = ({ data, layout, selectedPoint, onSelectPoint }) => {
+const InstancedPoints = ({ data, layout, selectedPoint, onSelectPoint, currentDate }) => {
   const meshRef = React.useRef();
   const numPoints = data.length;
+  
 
   // run the layout, animating on change
   const { animationProgress } = useAnimatedLayout({
@@ -110,7 +111,7 @@ const InstancedPoints = ({ data, layout, selectedPoint, onSelectPoint }) => {
     selectedPoint,
     onSelectPoint,
   });
-  const { colorAttrib, colorArray } = usePointColors({ data, selectedPoint });
+  const { colorAttrib, colorArray } = usePointColors({ data, selectedPoint,  });
 
   return (
     <>

@@ -23,7 +23,7 @@ const ThreePointVis = ({ data, layout, selectedPoint, onSelectPoint }, ref) => {
   }));
 
   return (
-    <Canvas camera={{ position: [0, -35, 20], far: 150 }}>
+    <Canvas camera={{ position: [0, -25, 20], far: 150 }}>
       <SceneBackground />
       <Controls ref={controlsRef} />
       <ambientLight color="#ffffff" intensity={0.1} />
@@ -31,7 +31,7 @@ const ThreePointVis = ({ data, layout, selectedPoint, onSelectPoint }, ref) => {
         color="#ffffff"
         skyColor="#ffffbb"
         groundColor="#080820"
-        intensity={1.0}
+        intensity={1.75}
       />
       <InstancedPoints
         data={data}
