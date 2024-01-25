@@ -9,6 +9,11 @@ import { BoxIcon } from '@radix-ui/react-icons';
 import HolyLoader from "holy-loader";
 import getBitcoinPriceUSD from './components/bitcoin';
 import React, { useState, useEffect } from 'react';
+import Earth from './components/earth';
+
+
+
+
 
 export default function App() {
   const [layout, setLayout] = React.useState('spiral');
@@ -36,8 +41,10 @@ export default function App() {
   const formatDate = (date) => {
     const month = date.getMonth() + 1; // getMonth() returns month from 0-11
     const day = date.getDate();
-    return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+    return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
   };
+  
 
   const visRef = React.useRef();
 
@@ -196,8 +203,8 @@ displayBitcoinPrice();
           <div className="text-overlay right-text">
           <p>{formatDate(currentTime)}</p>
           <p>{formatTime(currentTime)}</p>
-          <strong>Bitcoin</strong>
           <p>${bitcoinPrice}</p>
+         <p> <Earth /> </p>
 
           </div>
           <ThreePointVis
