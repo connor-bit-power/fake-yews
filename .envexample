@@ -1,0 +1,5 @@
+NODE_OPTIONS="--openssl-legacy-provider"
+SKIP_PREFLIGHT_CHECK=true
+
+OPENAI_API_KEY=
+LANGCHAIN_API_KEY=
