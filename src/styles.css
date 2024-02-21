@@ -14,6 +14,17 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'VCR_OSD_MONO';
+  src: url('./fonts/VCR_OSD_MONO_1.001.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.bot-message {
+  font-family: 'VCR_OSD_MONO', monospace; /* Fallback to monospace in case the custom font doesn't load */
+}
+
 
 .App {
   height: 100vh;
@@ -49,6 +60,11 @@ h3 {
   /* Additional styles */
 }
 
+.yewsTitle{
+  margin-bottom: -20px;
+  font-family: 'Akzidenz-Grotesk';
+}
+
 
 .article-list {
   list-style-type: none;
@@ -70,7 +86,6 @@ h3 {
 }
 
 .title-button:hover {
-  border: solid #fff 1px;
   border-radius: 10px;
   color:#007bff;
 }
@@ -92,19 +107,26 @@ h3 {
 
 .chat-button {
   text-align: left;
-  background-color: #f0f0f0; /* Example background color */
-  color: #333; /* Example text color */
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  margin-left: 10px; /* Adds space between the Read More and Chat buttons */
+  background-color: transparent; /* Example background color */
+  color: #f0f0f0; /* Example text color */
+  border: 1px #f0f0f0;
+  padding: 0px 0px;
+  margin-top: -30px;
+  margin-left: 10px; /* Space between the Read More and Chat buttons */
   cursor: pointer;
-  /* Add more styling as needed */
+  transition: all 0.3s ease; /* Smooth transition for effects */
+  border-radius: 8px; /* Rounded corners */
+  /* box-shadow: 
+    0 0 8px #002fa7,
+    0 0 20px #002fa7, 
+    0 0 40px #002fa7, 
+    0 0 60px #002fa7; */
 }
 
 .chat-button:hover {
-  background-color: #e0e0e0; /* Slightly darker on hover */
+  color: #007bff;
 }
+
 
 .vis-container {
   font-family: 'Akzidenz-Grotesk', sans-serif;
@@ -165,7 +187,7 @@ h3 {
 }
 
 .button-active {
-  border: 2px solid #fff; /* White border for active button */
+  color: #002fa7; /* White border for active button */
 }
 
 .controls > button,
@@ -232,8 +254,7 @@ h3 {
 }
 
 .open-button:hover {
-  border: solid #fff 1px;
-  border-radius: 10px;
+  color: #007bff;
 }
 
 
@@ -253,7 +274,7 @@ h3 {
 .left-text {
   position: absolute;
   top: 200px;
-  left: 20px;
+  left: 25px;
   width: 300px; /* Adjust based on your layout needs */
   z-index: 10;
   color: white;
@@ -261,6 +282,121 @@ h3 {
 
 
 .right-text {
-  top: 100px;
+  top: 200px;
   right: 20px; /* Adjust as needed */
+}
+
+
+.chat-box-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Keeps the backdrop */
+  z-index: 1050;
+}
+
+.chat-box {
+  position: relative; /* This line is crucial */
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  max-width: 800px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 70%; /* Keeps the chat box wider */
+  height: calc(100vh - 200px); /* Increased room at the top and bottom */
+  max-width: 700px; /* Adjust this value as needed */
+  z-index: 1051; /* Ensures it's above the semi-transparent background */
+  overflow-y: auto; /* Enables scrolling for overflow content */
+  display: flex;
+  flex-direction: column;
+  justify-content: start; 
+  border-radius: 8px; /* Rounded corners */
+}
+
+.chat-messages {
+  overflow-y: auto;
+  flex: 1; /* Takes up available space, allowing input area to sit at the bottom */
+}
+
+.chat-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.chat-input {
+  flex: 1;
+  border: none;
+  padding: 15px;
+  margin-right: -50px;
+  border: 2px solid #fff;
+  border-radius: 28px;
+  background-color: transparent;
+  color: #fff;
+  box-shadow: 
+    0 0 8px #002fa7, /* Inner blue glow */
+    0 0 20px #002fa7, /* Medium blue glow */
+    0 0 40px #002fa7, /* Outer blue glow */
+    0 0 40px #002fa7;
+    margin-bottom: 10px;
+}
+
+.send-chat-btn {
+  position: absolute;
+  right: 10px; /* Adjust based on padding/margins */
+  height: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color:#fff;
+  border-radius: 8px;
+  padding: 2px 2px;
+}
+
+.send-chat-btn:hover {
+  color:#333;
+  background-color: #fff;
+  box-shadow: 
+    0 0 8px #002fa7, /* Inner blue glow */
+    0 0 20px #002fa7, /* Medium blue glow */
+    0 0 40px #002fa7, /* Outer blue glow */
+    0 0 60px #002fa7;  /* Darker shade on hover */
+}
+
+.close-chat-btn {
+  position: absolute; /* Positions the button absolutely within .chat-box */
+  top: 5px; /* Adjust as necessary */
+  left: 5px; /* Adjust as necessary */
+  padding: 2px 5px; /* Reduced padding for a tinier button */
+  font-size: 12px; /* Adjusted for a smaller text size */
+  background-color: transparent; /* Or any color that fits the design */
+  color: #fff; /* Ensures text color contrasts with button background */
+  border: none; /* Optional: removes border */
+  border-radius: 50%; /* Optional: for a rounded button */
+  cursor: pointer;
+  z-index: 2; /* Ensures the button is above other content */
+}
+
+.conversation-container {
+  color: #fff;
+  text-align: center;
+  flex: 1; /* Takes up all available space */
+  overflow-y: auto; /* Makes the container scrollable */
+  margin-bottom: 10px; /* Adds some space between the messages and the input bar */
+  padding: 10px; /* Padding inside the conversation container */
+  background-color: transparent;
+  border-radius: 8px; /* Optional: adds rounded corners */
 }

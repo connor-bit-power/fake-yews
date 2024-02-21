@@ -10,21 +10,23 @@ import HolyLoader from "holy-loader";
 import getBitcoinPriceUSD from './components/bitcoin';
 import React, { useState, useEffect } from 'react';
 import Earth from './components/earth';
-
-
+import ChatBox from './components/ChatBox';
+import {ChatBubbleIcon, ReaderIcon} from '@radix-ui/react-icons';
 
 
 
 export default function App() {
-  const [layout, setLayout] = React.useState('spiral');
-  const [selectedPoint, setSelectedPoint] = React.useState(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState(null);
-  const [articleTitles, setArticleTitles] = React.useState([]);
-  const [showContentBox, setShowContentBox] = React.useState(false);
-  const [articleDetails, setArticleDetails] = React.useState([]);
-  const [showExtraContent, setShowExtraContent] = React.useState(false);
+  const [layout, setLayout] = useState('spiral');
+  const [selectedPoint, setSelectedPoint] = useState(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+  const [articleTitles, setArticleTitles] = useState([]);
+  const [showContentBox, setShowContentBox] = useState(false);
+  const [showChatBox, setShowChatBox] = useState(false); // Corrected the naming here
+  const [articleDetails, setArticleDetails] = useState([]);
+  const [showExtraContent, setShowExtraContent] = useState(false);
   const [bitcoinPrice, setBitcoinPrice] = useState('Loading...');
   const [currentTime, setCurrentTime] = useState(new Date());
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,7 +55,7 @@ export default function App() {
     setActiveButton(null);
     setArticleTitles([]);
     setShowContentBox(false);
-    setShowExtraContent(false); // Add this line to hide the extra content box
+    setShowExtraContent(false); 
   };
   
 
@@ -67,8 +69,7 @@ export default function App() {
   };
 
   const handleChatClick = () => {
-    console.log("Chat clicked!");
-    setShowExtraContent(true);
+    setShowChatBox(!showChatBox);
   };
 
 
@@ -176,10 +177,12 @@ displayBitcoinPrice();
       <Suspense fallback={<div>Loading...</div>}>
         <div className="vis-and-text-container">
           <div className="text-overlay left-text">
-            <h1>YEWS</h1>
+            <h1 classname="yewsTitle">YEWS</h1>
             {selectedPoint && (
               <>
                 <strong>{selectedPoint.date}</strong>
+                <button className="chat-button" onClick={handleChatClick}><ReaderIcon /></button>
+                <button className="chat-button" onClick={handleChatClick}><ChatBubbleIcon /></button>
                 <div>
                   <button className={`open-button ${activeButton === 'tenAM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('tenAM')}>10AM</button>
                   <button className={`open-button ${activeButton === 'threePM' ? 'button-active' : ''}`} onClick={() => onTimeButtonClick('threePM')}>3PM</button>
@@ -199,6 +202,9 @@ displayBitcoinPrice();
               </>
             )}
           </div>
+
+          <ChatBox isOpen={showChatBox} onClose={() => setShowChatBox(false)} selectedDate={selectedPoint ? selectedPoint.date : ''} />
+
 
           <div className="text-overlay right-text">
           <p>{formatDate(currentTime)}</p>

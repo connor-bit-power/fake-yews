@@ -1,7 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import requests
 from bs4 import BeautifulSoup
+import re
+import os
 
 app = FastAPI()
 
@@ -62,7 +64,21 @@ def get_article_details(url):
     
     return articles_data
 
+# Helper function to sanitize URL into a filename
+def url_to_filename(url):
+    # Split the URL by slashes and take the last part
+    last_part = url.split('/')[-1]
+    
+    # Remove query parameters if any
+    last_part = last_part.split('?')[0]
 
+    # Keep only alphanumeric characters and dashes
+    filename = re.sub(r'[^a-zA-Z0-9\-]', '_', last_part)
+    
+    # Append ".txt" extension
+    filename = filename + ".txt"
+
+    return filename
 
 # Existing endpoint to get article titles
 @app.get("/get-article-titles/")
@@ -70,8 +86,22 @@ async def read_item(url: str):
     titles = get_article_titles(url)
     return {"titles": titles}
 
-# New endpoint to get article details
+# Updated endpoint to get article details and save to a file
 @app.get("/get-yews-data/")
 async def read_yews_data(url: str):
     articles = get_article_details(url)
-    return {"articles": articles}
+    
+    # Generate filename from URL
+    filename = url_to_filename(url)
+    # Path handling for filename
+    filepath = os.path.join(os.getcwd(), filename)
+
+    try:
+        # Save the articles to a text file
+        with open(filepath, 'w') as file:
+            for article in articles:
+                file.write(f"Title: {article['Title']}\nDetails: {article['Details']}\n\n")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error saving file: {str(e)}")
+
+    return {"articles": articles, "file_saved": filepath}
