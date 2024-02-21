@@ -14,4 +14,4 @@ npm start
 
 
 
-**xplr**
+now go **xplr**
