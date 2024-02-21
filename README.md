@@ -1,4 +1,4 @@
-fake YEWS
+fake-YEWS
 is built for desktop browsing
 
 
